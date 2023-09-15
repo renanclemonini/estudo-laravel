@@ -14,5 +14,5 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [UsuarioController::class, 'cadastrar']);
+Route::get('/', [UsuarioController::class, 'cadastrar'])->name('home');
 Route::post('/salvar', [UsuarioController::class, 'salvar'])->name('salvar');
