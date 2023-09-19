@@ -3,6 +3,7 @@
 namespace App\Models\Model;
 
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -22,20 +23,18 @@ class UsuarioModel extends Model
             "senha",
             "data_cadastro"
         ])
-        ->limit($limite);
+        ->limit($limite)->get();
 
-        dd($sql->toSql());
+        return $sql;
     }
 
     public static function cadastrar(Request $request)
     {
-        $sql = self::insert([
+        return self::insert([
             "nome" => $request->input('nome'),
             "email" => $request->input('email'),
             "senha" => Hash::make($request->input('senha')),
-            "data_cadastro" => DB::raw('NOW()')
-        ]);
-
-        dd($sql->toSql(), $request->all()); 
+            "data_cadastro" => new Carbon
+        ]); 
     }
 }

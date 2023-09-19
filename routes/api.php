@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\API\UsuarioAPI;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Models\Model\UsuarioModel;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,14 +22,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function(){
     Route::get('lista', function(){
-        return [
-            "nome" =>"Renan",
-            "nascimento" => "10-08-1993"
-        ];
+        return UsuarioModel::listar(10);
     });
 
-    Route::post('cadastrar', function(){
-        echo "implementar";
-    });
+    Route::post('cadastrar', [UsuarioAPI::class, 'salvar']);
 });
 

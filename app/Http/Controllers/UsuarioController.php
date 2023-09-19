@@ -17,12 +17,19 @@ class UsuarioController extends Controller
     {
         $request->validate([
             "nome" => "required",
-            "email" => "required|email",
+            "email" => "required|email|unique:usuario,email",
             "senha" => "required|min:5"
         ]);
 
-        UsuarioModel::cadastrar($request);
+        if(UsuarioModel::cadastrar($request))
+        {
+            return view('usuario.sucesso', [
+                "fulano" => $request->input('nome')
+            ]);
+        } else 
+        {
+            echo "deu ruim";
+        }
 
-        return view('usuario.sucesso');
     }
 }
